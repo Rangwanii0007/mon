@@ -263,8 +263,8 @@
                 <div class="game-card bg-gray-800 rounded-lg overflow-hidden shadow-lg transition duration-300">
                     <div class="relative">
                         <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/433368f0-2f1e-4206-a357-93cc16720889.png" alt="Slot machine with golden symbols, dollar signs, and bright neon lights" class="w-full h-40 object-cover">
-                        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 hover:opacity-100 transition">
-                            <button class="bg-yellow-500 text-black px-4 py-2 rounded-md font-bold hover:bg-yellow-400 transition">
+                        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 hover:opacity-100 transition cursor-pointer" onclick="loadGame('European Roulette')">
+                            <button class="bg-yellow-500 text-black px-4 py-2 rounded-md font-bold hover:bg-yellow-400 transition" onclick="loadGame('Golden Fortune')">
                                 Play Now
                             </button>
                         </div>
@@ -283,7 +283,7 @@
                     <div class="relative">
                         <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/997bb2b3-df4c-448b-b7db-8a0677a0352b.png" alt="Ancient Egyptian themed slot machine with pyramids, hieroglyphics, and golden artifacts" class="w-full h-40 object-cover">
                         <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 hover:opacity-100 transition">
-                            <button class="bg-yellow-500 text-black px-4 py-2 rounded-md font-bold hover:bg-yellow-400 transition">
+                            <button class="bg-yellow-500 text-black px-4 py-2 rounded-md font-bold hover:bg-yellow-400 transition" onclick="loadGame('Pharaoh\'s Gold')">
                                 Play Now
                             </button>
                         </div>
@@ -890,6 +890,13 @@
             document.getElementById('deposit-modal').classList.remove('flex');
         });
         
+        // Game loading function
+        function loadGame(gameName) {
+            alert(`Loading ${gameName}...\nThis would connect to real game API in production`);
+            // In production, you would redirect to game URL or embed game iframe
+            // window.location.href = `/games/${gameName.toLowerCase().replace(' ', '-')}`;
+        }
+
         // Game card hover effects
         document.querySelectorAll('.game-card').forEach(card => {
             card.addEventListener('mouseenter', () => {
