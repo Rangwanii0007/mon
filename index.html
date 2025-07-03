@@ -792,9 +792,16 @@
                     </div>
                 </div>
                 
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-1">Upload Payment Proof (Screenshot)</label>
+                    <input type="file" id="proof-file" accept="image/*" class="w-full px-3 py-2 bg-gray-700 rounded-md text-white">
+                    <p class="text-xs text-gray-400 mt-1">Upload screenshot of successful payment</p>
+                </div>
+                
                 <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-md font-bold transition">
-                    Proceed to Payment
+                    Submit Deposit Request
                 </button>
+                <p class="text-xs text-gray-400 text-center">Your deposit will be processed after verification (usually within 1 hour)</p>
             </form>
         </div>
     </div>
@@ -916,6 +923,19 @@
                 });
         });
         
+        // Crypto address copy function
+        function copyCryptoAddress() {
+            const address = 'TPdaeAxVJCkHjApQnZVFvdikn2ZTjehEmt';
+            navigator.clipboard.writeText(address);
+            alert('Crypto address copied to clipboard!');
+        }
+
+        // Show/hide crypto details based on payment method
+        document.getElementById('deposit-method').addEventListener('change', function() {
+            const cryptoDetails = document.getElementById('crypto-details');
+            cryptoDetails.classList.toggle('hidden', this.value !== 'crypto');
+        });
+
         // Deposit button functionality
         document.querySelector('.balance-display button.bg-green-600').addEventListener('click', (e) => {
             e.preventDefault();
@@ -932,17 +952,43 @@
             e.preventDefault();
             const amount = document.getElementById('deposit-amount').value;
             const method = document.getElementById('deposit-method').value;
-            alert(`Deposit of $${amount} via ${method} would be processed here`);
+            const proofFile = document.getElementById('proof-file').files[0];
+            
+            if (!proofFile) {
+                alert('Please upload payment proof screenshot');
+                return;
+            }
+            
+            // In production: Upload file to storage and create deposit record
+            const depositData = {
+                amount: amount,
+                method: method,
+                status: 'pending',
+                date: new Date(),
+                userId: auth.currentUser ? auth.currentUser.uid : 'guest'
+            };
+            
+            if (method === 'crypto') {
+                alert(`Deposit request submitted for ${amount} USDT. Please send the exact amount to the provided TRX address and keep your transaction screenshot ready for verification.`);
+            } else {
+                alert(`Deposit request submitted for ${amount}. Our team will verify your payment proof shortly.`);
+            }
             document.getElementById('deposit-modal').classList.add('hidden');
             document.getElementById('deposit-modal').classList.remove('flex');
         });
         
         // Game loading function
         function loadGame(gameName) {
-            if (!auth.currentUser) {
-                alert('Please login to play games');
-                loginModal.classList.remove('hidden');
-                loginModal.classList.add('flex');
+            // Check if logged in or guest
+            const guestData = JSON.parse(sessionStorage.getItem('guestData'));
+            if (!auth.currentUser && !guestData) {
+                // Show play options
+                if(confirm('Play as guest or login?')) {
+                    loginModal.classList.remove('hidden'); 
+                    loginModal.classList.add('flex');
+                } else {
+                    startGuestSession();
+                }
                 return;
             }
             
@@ -972,12 +1018,24 @@
             if (user) {
                 updateUI(user);
             } else {
-                // User is signed out
-                document.getElementById('login-btn').style.display = 'block';
-                document.getElementById('register-btn').style.display = 'block';
-                // Hide any user-specific elements
+                // If session has guest data
+                const guestData = JSON.parse(sessionStorage.getItem('guestData'));
+                if (guestData) {
+                    updateGuestUI(guestData);
+                } else {
+                    document.getElementById('login-btn').style.display = 'block';
+                    document.getElementById('register-btn').style.display = 'block';
+                    document.getElementById('guest-btn').style.display = 'block';
+                }
             }
         });
+
+        function updateGuestUI(guestData) {
+            document.getElementById('login-btn').style.display = 'none';
+            document.getElementById('register-btn').style.display = 'none';
+            document.getElementById('guest-btn').style.display = 'none';
+            document.querySelector('.balance-display h3').textContent = `${guestData.balance.toFixed(2)}`;
+        }
 
         function updateUI(user) {
             document.getElementById('login-btn').style.display = 'none';
@@ -994,6 +1052,19 @@
                     }
                 });
         }
+
+        // Guest functionality
+        function startGuestSession() {
+            const guestData = {
+                id: 'guest_' + Math.random().toString(36).substr(2, 9),
+                balance: 1000,
+                joinDate: new Date()
+            };
+            sessionStorage.setItem('guestData', JSON.stringify(guestData));
+            updateGuestUI(guestData);
+        }
+
+        document.getElementById('guest-btn').addEventListener('click', startGuestSession);
 
         // Game card hover effects
         document.querySelectorAll('.game-card').forEach(card => {
