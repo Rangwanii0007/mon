@@ -3,429 +3,902 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Moon | Anonymous Nighttime Social App</title>
+    <title>1WIN Casino - Premium Online Gaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --navy: #001F3F;
-            --lavender: #E6E6FA;
-            --moonlight: #F0F8FF;
-            --gold: #FFD700;
-            --muted-gray: #A9A9A9;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
         
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #00060F;
-            color: var(--moonlight);
-            min-height: 100vh;
+            background-color: #151515;
+            color: #ffffff;
             overflow-x: hidden;
         }
         
-        .moon-gradient {
-            background: linear-gradient(135deg, var(--navy) 0%, #00060F 100%);
+        .header-gradient {
+            background: linear-gradient(90deg, #0d47a1 0%, #1e88e5 100%);
         }
         
-        .post-card {
-            background: rgba(0, 31, 63, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(230, 230, 250, 0.1);
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
         
-        .moon-phases {
-            animation: float 6s ease-in-out infinite;
+        .live-badge {
+            animation: pulse 1.5s infinite;
         }
         
-        .stars {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: white;
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+        
+        .balance-display {
+            background: linear-gradient(90deg, #1a237e 0%, #283593 100%);
+            box-shadow: 0 4px 15px rgba(26, 35, 126, 0.5);
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        
+        .blinking-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #ff1744;
             border-radius: 50%;
-            animation: twinkle var(--duration) ease-in-out infinite;
-            opacity: 0;
+            animation: blink 1s infinite;
         }
         
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-        
-        @keyframes twinkle {
-            0%, 100% { opacity: 0; }
-            50% { opacity: var(--opacity); }
-        }
-        
-        .text-shadow {
-            text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
-        }
-        
-        .glow-button {
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-        }
-        
-        .voice-recorder {
-            background: radial-gradient(circle, rgba(0, 31, 63, 0.8) 0%, rgba(0, 6, 15, 0.9) 100%);
-        }
-        
-        .progress-ring {
-            stroke-dasharray: 283;
-            stroke-dashoffset: 283;
-            animation: countdown 60s linear forwards;
-        }
-        
-        .wave-bar {
-            width: 4px;
-            margin: 0 2px;
-            background: #FFD700;
-            border-radius: 2px;
-            animation: wave 1s infinite ease-in-out alternate;
-        }
-
-        @keyframes wave {
-            0% { transform: scaleY(0.5); }
-            100% { transform: scaleY(1); }
-        }
-
-        @keyframes countdown {
-            to {
-                stroke-dashoffset: 0;
-            }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
         }
     </style>
 </head>
-<body class="relative">
-    <!-- Floating Stars Background -->
-    <div id="stars-container" class="fixed inset-0 overflow-hidden pointer-events-none"></div>
+<body>
+    <!-- Top Navigation Bar -->
+    <header class="header-gradient py-3 px-4 md:px-8 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c5014042-6e37-44aa-b0c9-5bf6ab3a0c93.png" alt="1WIN Casino logo in white with blue gradient background" class="h-8">
+                <span class="ml-2 text-xs bg-yellow-500 px-2 py-1 rounded-full font-bold">BETA</span>
+            </div>
+            
+            <!-- Main Navigation -->
+            <nav class="hidden md:flex space-x-6">
+                <a href="#live" class="text-white hover:text-yellow-300 font-medium transition">Live Casino</a>
+                <a href="#slots" class="text-white hover:text-yellow-300 font-medium transition">Slots</a>
+                <a href="#sports" class="text-white hover:text-yellow-300 font-medium transition">Sports</a>
+                <a href="#promotions" class="text-white hover:text-yellow-300 font-medium transition">Promotions</a>
+                <a href="#vip" class="text-yellow-300 font-medium">VIP Club</a>
+            </nav>
+            
+            <!-- User Controls -->
+            <div class="flex items-center space-x-4">
+                <button id="login-btn" class="bg-white text-blue-700 px-4 py-2 rounded-md font-bold hover:bg-blue-50 transition">Login</button>
+                <button id="register-btn" class="bg-yellow-500 text-black px-4 py-2 rounded-md font-bold hover:bg-yellow-400 transition">Register</button>
+                <button class="md:hidden text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
     
-    <!-- Main Container -->
-    <div class="container mx-auto px-4 py-8 max-w-3xl relative">
-        <!-- App Header -->
-        <header class="flex justify-between items-center mb-8">
-            <div class="flex items-center">
-                <div class="relative">
-                    <svg class="w-12 h-12 text-yellow-200 moon-phases mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="...same path..." fill="currentColor"/>
-                    </svg>
-                    <div class="absolute -top-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-blue-900 animate-pulse"></div>
-                </div>
-                <div>
-                    <h1 class="text-2xl font-bold text-shadow" style="font-family: 'Merriweather', serif;">My Moon</h1>
-                    <p class="text-xs text-blue-400">Connected • 42 online</p>
-                </div>
-            </div>
-            <div class="flex items-center">
-                <button class="bg-transparent border border-yellow-200 border-opacity-50 rounded-full p-2 mr-3 hover:bg-yellow-200 hover:bg-opacity-10 transition-all">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-200" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z" />
-                    </svg>
-                </button>
-                <button class="bg-transparent border border-yellow-200 border-opacity-50 rounded-full p-2 mr-3 hover:bg-yellow-200 hover:bg-opacity-10 transition-all">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-200" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
-                    </svg>
-                </button>
-            </div>
-        </header>
-        
-        <!-- Time Lock Indicator -->
-        <div class="flex items-center justify-center mb-8 bg-gradient-to-r from-blue-900 to-blue-800 py-3 px-6 rounded-full border border-blue-700">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-200 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
-            </svg>
-            <span class="text-yellow-200 font-medium">Active: 10 PM - 4 AM</span>
+    <!-- Mobile Menu -->
+    <div class="md:hidden bg-gray-800 py-2 px-4 hidden" id="mobile-menu">
+        <div class="flex flex-col space-y-2">
+            <a href="#live" class="text-white hover:text-yellow-300 transition py-1">Live Casino</a>
+            <a href="#slots" class="text-white hover:text-yellow-300 transition py-1">Slots</a>
+            <a href="#sports" class="text-white hover:text-yellow-300 transition py-1">Sports</a>
+            <a href="#promotions" class="text-white hover:text-yellow-300 transition py-1">Promotions</a>
+            <a href="#vip" class="text-yellow-300 py-1">VIP Club</a>
         </div>
-        
-        <!-- Create Post -->
-        <div class="post-card rounded-xl p-6 mb-8 transition-all hover:border-opacity-50">
-            <textarea class="w-full bg-transparent border-b border-blue-700 pb-4 text-lg focus:outline-none focus:border-yellow-200 placeholder-blue-400" rows="3" placeholder="Share your night thoughts..."></textarea>
-            <div class="flex justify-between items-center mt-4">
-                <div class="flex">
-                    <div class="relative group">
-                        <button class="bg-transparent border border-blue-700 rounded-full p-2 mr-2 hover:bg-blue-800 transition-all">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zm-.464 5.535a1 1 0 10-1.415-1.414 3 3 0 01-4.242 0 1 1 0 00-1.415 1.414 5 5 0 007.072 0z" clip-rule="evenodd"/>
-                            </svg>
-                        </button>
-                        <div class="absolute bottom-full left-0 mb-2 hidden group-hover:flex bg-blue-950 border border-blue-800 rounded-lg p-2 shadow-lg z-10">
-                            <button class="px-3 py-1 bg-blue-900 rounded-lg m-1 text-xs" data-mood="happy">😊 Happy</button>
-                            <button class="px-3 py-1 bg-blue-900 rounded-lg m-1 text-xs" data-mood="sad">😢 Sad</button>
-                            <button class="px-3 py-1 bg-blue-900 rounded-lg m-1 text-xs" data-mood="thoughtful">🤔 Thoughtful</button>
-                            <button class="px-3 py-1 bg-blue-900 rounded-lg m-1 text-xs" data-mood="angry">😠 Angry</button>
-                        </div>
+    </div>
+    
+    <!-- Hero Section -->
+    <section class="relative">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/bfb10b7d-621b-4797-ac58-a57d430e98ea.png" alt="Premium casino welcome banner with golden chips, cards and slot machines" class="w-full object-cover h-64 md:h-96">
+        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div class="text-center px-4">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Welcome to 1WIN Casino</h2>
+                <p class="text-xl text-yellow-300 mb-6">Where the winners play!</p>
+                <button class="bg-yellow-500 text-black px-8 py-3 rounded-md font-bold hover:bg-yellow-400 transition text-lg">
+                    Get Your Bonus Now
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Balance & Wallet Section -->
+    <section class="py-6 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="balance-display rounded-lg p-4 flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/28c77e84-5add-45bf-af2e-c6a5c25a4ef3.png" alt="Golden wallet icon with dollar sign" class="w-10 h-10 rounded-full mr-3">
+                    <div>
+                        <p class="text-xs text-gray-300">Main Balance</p>
+                        <h3 class="text-xl font-bold">$0.00</h3>
                     </div>
-                    <button class="bg-transparent border border-blue-700 rounded-full p-2 mr-2 hover:bg-blue-800 transition-all">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
-                        </svg>
+                </div>
+                
+                <div class="flex space-x-3">
+                    <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md font-medium transition">
+                        <i class="fas fa-plus mr-2"></i> Deposit
                     </button>
-                    <button class="bg-transparent border border-blue-700 rounded-full p-2 hover:bg-blue-800 transition-all">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
-                        </svg>
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium transition">
+                        <i class="fas fa-exchange-alt mr-2"></i> Transfer
                     </button>
-                </div>
-                <button class="bg-yellow-200 text-blue-900 font-semibold py-2 px-6 rounded-full glow-button hover:bg-opacity-90 transition-all">
-                    Release to Moon
-                </button>
-            </div>
-        </div>
-        
-        <!-- Voice Whisper Feature -->
-        <div class="voice-recorder rounded-xl p-6 mb-8 border border-blue-800 relative overflow-hidden">
-            <div class="absolute inset-0 bg-blue-900 opacity-10 z-0"></div>
-            <div class="relative z-10">
-                <h3 class="text-lg font-semibold mb-4 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-200 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clip-rule="evenodd" />
-                    </svg>
-                    Your Daily Whisper
-                </h3>
-                <div class="flex flex-col items-center">
-                    <div class="relative w-40 h-40 mb-4">
-                        <div class="absolute inset-0 flex items-center justify-center" id="waveform">
-                            <div class="wave-bar" style="height:20%;animation-delay:-0.5s"></div>
-                            <div class="wave-bar" style="height:45%;animation-delay:-0.4s"></div>
-                            <div class="wave-bar" style="height:70%;animation-delay:-0.3s"></div>
-                            <div class="wave-bar" style="height:90%;animation-delay:-0.2s"></div>
-                            <div class="wave-bar" style="height:60%;animation-delay:-0.1s"></div>
-                            <div class="wave-bar" style="height:30%;animation-delay:0s"></div>
-                        </div>
-                        <svg class="w-full h-full" viewBox="0 0 100 100">
-                            <circle cx="50" cy="50" r="45" fill="none" stroke="#1E3A8A" stroke-width="5"/>
-                            <circle class="progress-ring" cx="50" cy="50" r="45" fill="none" stroke="#FFD700" stroke-width="5" stroke-linecap="round" transform="rotate(-90 50 50)"/>
-                        </svg>
-                        <button class="absolute inset-0 flex items-center justify-center">
-                            <div class="w-20 h-20 bg-yellow-200 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-blue-900" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </button>
-                    </div>
-                    <p class="text-center text-blue-300 mb-4">Record one anonymous whisper today</p>
-                    <div class="flex space-x-4">
-                        <button class="px-4 py-2 border border-blue-700 rounded-full text-sm hover:bg-blue-800 transition-all">Change Settings</button>
-                        <button class="px-4 py-2 bg-blue-700 rounded-full text-sm hover:bg-blue-600 transition-all">Send to Moon</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Posts Feed -->
-        <div id="posts-container">
-            <!-- Post 1 -->
-            <div class="post-card rounded-xl p-6 mb-6">
-                <div class="flex justify-between items-center mb-4">
-                    <div class="flex items-center">
-                        <div class="w-8 h-8 rounded-full bg-blue-900 flex items-center justify-center mr-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-200" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zm-.464 5.535a1 1 0 10-1.415-1.414 3 3 0 01-4.242 0 1 1 0 00-1.415 1.414 5 5 0 007.072 0z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <span class="font-medium">Lonely Moonchild</span>
-                    </div>
-                    <span class="text-blue-400 text-sm">02:37 AM</span>
-                </div>
-                <p class="mb-4">Why does nighttime make feelings feel deeper? Like the whole universe could be listening, but no one actually is.</p>
-                <div class="flex items-center mb-5">
-                    <span class="text-xs px-3 py-1 bg-blue-900 rounded-full text-blue-300 mr-3">Sad Moon</span>
-                    <div class="flex items-center text-yellow-200 text-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z" clip-rule="evenodd" />
-                        </svg>
-                        MoonBot Advice
-                    </div>
-                </div>
-                <div class="bg-blue-900 bg-opacity-50 rounded-lg p-4 mb-5">
-                    <p class="italic text-blue-200">"The night does amplify emotions because it removes the distractions of day. You're not alone—many feel that profound loneliness under the moonlight."</p>
-                </div>
-                <div class="flex justify-between border-t border-blue-800 pt-4">
-                    <div class="flex space-x-4">
-                        <button class="flex items-center text-blue-400 text-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-200 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
-                            </svg>
-                            5 Replies
-                        </button>
-                    </div>
-                    <div class="flex space-x-3">
-                        <button class="hover:bg-blue-900 hover:bg-opacity-50 p-2 rounded-full transition-all" onclick="sendFriendRequest('lonely_moonchild')">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zm8-4a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z" />
-                            </svg>
-                        </button>
-                    </div>
+                    <button class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md font-medium transition">
+                        <i class="fas fa-minus mr-2"></i> Withdraw
+                    </button>
                 </div>
             </div>
             
-            <!-- Post 2 -->
-            <div class="post-card rounded-xl p-6 mb-6">
-                <div class="flex justify-between items-center mb-4">
-                    <div class="flex items-center">
-                        <div class="w-8 h-8 rounded-full bg-blue-900 flex items-center justify-center mr-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-200" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zm-.464 5.535a1 1 0 10-1.415-1.414 3 3 0 01-4.242 0 1 1 0 00-1.415 1.414 5 5 0 007.072 0z" clip-rule="evenodd" />
-                            </svg>
+            <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
+                <button class="bg-gray-800 hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm flex items-center justify-center transition">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ba0a2d25-d85e-46ab-a715-72da5ec9371c.png" alt="Golden coins icon" class="w-4 h-4 mr-2"> Bonus
+                </button>
+                <button class="bg-gray-800 hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm flex items-center justify-center transition">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/77dcf68d-e14c-40b6-ab97-37c074b9f02e.png" alt="Lightning bolt icon" class="w-4 h-4 mr-2"> Quick Bet
+                </button>
+                <button class="bg-gray-800 hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm flex items-center justify-center transition">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f04c76ab-b53f-4d6b-8780-b22666f1adb1.png" alt="Clock icon" class="w-4 h-4 mr-2"> History
+                </button>
+                <button class="bg-gray-800 hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm flex items-center justify-center transition">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/872b8654-ee99-40de-af33-ad2bd3892a06.png" alt="User profile icon" class="w-4 h-4 mr-2"> Account
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Live Casino Section -->
+    <section id="live" class="py-10 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-white flex items-center">
+                    <i class="fas fa-play-circle text-red-500 mr-2 animate-pulse"></i> 
+                    <span>Live Casino</span>
+                    <span class="ml-2 text-xs bg-red-600 px-2 py-1 rounded-full">HOT</span>
+                </h2>
+                <a href="#" class="text-yellow-400 hover:text-yellow-300 transition">View All</a>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Game Card 1 -->
+                <div class="game-card bg-gray-900 rounded-lg overflow-hidden shadow-lg transition duration-300">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f3430635-04b6-4328-a804-2453a7e9a517.png" alt="Live roulette table with purple velvet surface, golden wheel, and casino chips" class="w-full h-40 object-cover">
+                        <div class="absolute top-2 left-2 px-2 py-1 bg-red-500 rounded-md text-xs font-bold text-white flex items-center">
+                            <div class="blinking-dot mr-1"></div>
+                            LIVE
                         </div>
-                        <span class="font-medium">Happy Soul</span>
                     </div>
-                    <span class="text-blue-400 text-sm">11:42 PM</span>
+                    <div class="p-3">
+                        <h3 class="font-bold text-white mb-1">European Roulette</h3>
+                        <div class="flex items-center text-xs text-gray-400">
+                            <i class="fas fa-users mr-1"></i> 1,245
+                            <span class="mx-2">|</span>
+                            <span class="text-yellow-400">$5 - $50,000</span>
+                        </div>
+                    </div>
                 </div>
-                <p class="mb-4">Tonight I felt pure joy for the first time in months. The moon is almost full and it feels magical!</p>
-                <div class="flex items-center mb-5">
-                    <span class="text-xs px-3 py-1 bg-green-900 rounded-full text-green-300 mr-3">Happy Moon</span>
+                
+                <!-- Game Card 2 -->
+                <div class="game-card bg-gray-900 rounded-lg overflow-hidden shadow-lg transition duration-300">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ef4e8dde-ca6a-43ec-b8c6-30c4aa686a41.png" alt="Professional blackjack dealer with cards in a luxury casino setting" class="w-full h-40 object-cover">
+                        <div class="absolute top-2 left-2 px-2 py-1 bg-red-500 rounded-md text-xs font-bold text-white flex items-center">
+                            <div class="blinking-dot mr-1"></div>
+                            LIVE
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h3 class="font-bold text-white mb-1">Blackjack VIP</h3>
+                        <div class="flex items-center text-xs text-gray-400">
+                            <i class="fas fa-users mr-1"></i> 875
+                            <span class="mx-2">|</span>
+                            <span class="text-yellow-400">$10 - $25,000</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="flex justify-between border-t border-blue-800 pt-4">
-                    <div class="flex space-x-4">
-                        <button class="flex items-center text-blue-400 text-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-200 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
-                            </svg>
-                            8 Replies
+                
+                <!-- Game Card 3 -->
+                <div class="game-card bg-gray-900 rounded-lg overflow-hidden shadow-lg transition duration-300">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1aedee2e-8fa8-4611-9054-e1f499b38d95.png" alt="Premium baccarat table with green felt, professional dealer, and high-stakes atmosphere" class="w-full h-40 object-cover">
+                        <div class="absolute top-2 left-2 px-2 py-1 bg-red-500 rounded-md text-xs font-bold text-white flex items-center">
+                            <div class="blinking-dot mr-1"></div>
+                            LIVE
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h3 class="font-bold text-white mb-1">Baccarat Dragon</h3>
+                        <div class="flex items-center text-xs text-gray-400">
+                            <i class="fas fa-users mr-1"></i> 1,532
+                            <span class="mx-2">|</span>
+                            <span class="text-yellow-400">$20 - $100,000</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Game Card 4 -->
+                <div class="game-card bg-gray-900 rounded-lg overflow-hidden shadow-lg transition duration-300">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c4a4111e-ea66-4f17-9c4f-ed8d3a425339.png" alt="Poker table with professional dealer, multiple card decks, and casino chips" class="w-full h-40 object-cover">
+                        <div class="absolute top-2 left-2 px-2 py-1 bg-red-500 rounded-md text-xs font-bold text-white flex items-center">
+                            <div class="blinking-dot mr-1"></div>
+                            LIVE
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h3 class="font-bold text-white mb-1">Three Card Poker</h3>
+                        <div class="flex items-center text-xs text-gray-400">
+                            <i class="fas fa-users mr-1"></i> 642
+                            <span class="mx-2">|</span>
+                            <span class="text-yellow-400">$5 - $10,000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Slots Section -->
+    <section id="slots" class="py-10 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-white">
+                    <i class="fas fa-slot-machine text-purple-500 mr-2"></i> Slot Games
+                </h2>
+                <a href="#" class="text-yellow-400 hover:text-yellow-300 transition">View All</a>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Slot Card 1 -->
+                <div class="game-card bg-gray-800 rounded-lg overflow-hidden shadow-lg transition duration-300">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/433368f0-2f1e-4206-a357-93cc16720889.png" alt="Slot machine with golden symbols, dollar signs, and bright neon lights" class="w-full h-40 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 hover:opacity-100 transition">
+                            <button class="bg-yellow-500 text-black px-4 py-2 rounded-md font-bold hover:bg-yellow-400 transition">
+                                Play Now
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h3 class="font-bold text-white mb-1">Golden Fortune</h3>
+                        <div class="flex items-center justify-between text-xs text-gray-400">
+                            <span>95.8% RTP</span>
+                            <span class="text-yellow-400">$0.10 - $500</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slot Card 2 -->
+                <div class="game-card bg-gray-800 rounded-lg overflow-hidden shadow-lg transition duration-300">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/997bb2b3-df4c-448b-b7db-8a0677a0352b.png" alt="Ancient Egyptian themed slot machine with pyramids, hieroglyphics, and golden artifacts" class="w-full h-40 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 hover:opacity-100 transition">
+                            <button class="bg-yellow-500 text-black px-4 py-2 rounded-md font-bold hover:bg-yellow-400 transition">
+                                Play Now
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h3 class="font-bold text-white mb-1">Pharaoh's Gold</h3>
+                        <div class="flex items-center justify-between text-xs text-gray-400">
+                            <span>96.2% RTP</span>
+                            <span class="text-yellow-400">$0.20 - $1,000</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slot Card 3 -->
+                <div class="game-card bg-gray-800 rounded-lg overflow-hidden shadow-lg transition duration-300">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ad9b786c-dda1-467b-b8f4-62c2722625a8.png" alt="Classic fruit themed slot machine with cherries, lemons, and watermelons on the reels" class="w-full h-40 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 hover:opacity-100 transition">
+                            <button class="bg-yellow-500 text-black px-4 py-2 rounded-md font-bold hover:bg-yellow-400 transition">
+                                Play Now
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h3 class="font-bold text-white mb-1">Fruits Deluxe</h3>
+                        <div class="flex items-center justify-between text-xs text-gray-400">
+                            <span>96.5% RTP</span>
+                            <span class="text-yellow-400">$0.05 - $250</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slot Card 4 -->
+                <div class="game-card bg-gray-800 rounded-lg overflow-hidden shadow-lg transition duration-300">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7f98a43a-7aac-4a45-b1a3-39b61cacb737.png" alt="Space adventure themed slot with rockets, planets, and futuristic symbols" class="w-full h-40 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 hover:opacity-100 transition">
+                            <button class="bg-yellow-500 text-black px-4 py-2 rounded-md font-bold hover:bg-yellow-400 transition">
+                                Play Now
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h3 class="font-bold text-white mb-1">Star Voyage</h3>
+                        <div class="flex items-center justify-between text-xs text-gray-400">
+                            <span>96.1% RTP</span>
+                            <span class="text-yellow-400">$0.20 - $750</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sports Betting Section -->
+    <section id="sports" class="py-10 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-white">
+                    <i class="fas fa-trophy text-blue-400 mr-2"></i> Sports Betting
+                </h2>
+                <a href="#" class="text-yellow-400 hover:text-yellow-300 transition">View All</a>
+            </div>
+            
+            <!-- Sports Navigation -->
+            <div class="mb-6 overflow-x-auto">
+                <div class="flex space-x-2">
+                    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md font-medium text-white transition whitespace-nowrap">All Sports</button>
+                    <button class="bg-yellow-500 px-4 py-2 rounded-md font-medium text-black whitespace-nowrap">Football</button>
+                    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md font-medium text-white transition whitespace-nowrap">Basketball</button>
+                    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md font-medium text-white transition whitespace-nowrap">Tennis</button>
+                    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md font-medium text-white transition whitespace-nowrap">Cricket</button>
+                    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md font-medium text-white transition whitespace-nowrap">Esports</button>
+                    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md font-medium text-white transition whitespace-nowrap">Hockey</button>
+                </div>
+            </div>
+            
+            <!-- Featured Matches -->
+            <div class="bg-gray-900 rounded-lg p-4 mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-bold text-white">Featured Matches</h3>
+                    <span class="text-xs text-gray-400">Today, 12 Jun</span>
+                </div>
+                
+                <!-- Football Match -->
+                <div class="bg-gray-800 rounded-lg p-3 mb-3">
+                    <div class="flex justify-center items-center mb-3">
+                        <div class="text-center w-1/3">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2a57a7f6-f51d-4495-ab86-777bef4bea3e.png" alt="Manchester United club logo" class="mx-auto w-12 h-12 border-2 border-red-600 rounded-full">
+                            <h4 class="font-medium text-sm mt-1">Man Utd</h4>
+                        </div>
+                        <div class="w-1/3 text-center">
+                            <div class="text-xs text-gray-400 mb-1">18:30 GMT</div>
+                            <div class="text-lg font-bold">1.75</div>
+                            <div class="text-xs text-yellow-400 mt-1">vs</div>
+                        </div>
+                        <div class="text-center w-1/3">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/516e826c-3f6c-4106-adec-3e50982b6bb6.png" alt="Manchester City club logo" class="mx-auto w-12 h-12">
+                            <h4 class="font-medium text-sm mt-1">Man City</h4>
+                        </div>
+                    </div>
+                    <div class="flex justify-between space-x-2">
+                        <button class="bg-gray-700 hover:bg-blue-600 text-white px-2 py-1 rounded-md text-xs font-medium transition w-full">1 (2.10)</button>
+                        <button class="bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded-md text-xs font-medium transition w-full">X (3.50)</button>
+                        <button class="bg-gray-700 hover:bg-red-600 text-white px-2 py-1 rounded-md text-xs font-medium transition w-full">2 (1.75)</button>
+                    </div>
+                </div>
+                
+                <!-- Tennis Match -->
+                <div class="bg-gray-800 rounded-lg p-3">
+                    <div class="flex justify-center items-center mb-3">
+                        <div class="text-center w-1/3">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/db698634-a0d8-4076-aa89-04dbf4c3f0b8.png" alt="Novak Djokovic portrait" class="mx-auto w-12 h-12 rounded-full">
+                            <h4 class="font-medium text-sm mt-1">Djokovic</h4>
+                        </div>
+                        <div class="w-1/3 text-center">
+                            <div class="text-xs text-gray-400 mb-1">20:15 GMT</div>
+                            <div class="text-lg font-bold">1.30</div>
+                            <div class="text-xs text-yellow-400 mt-1">vs</div>
+                        </div>
+                        <div class="text-center w-1/3">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b452ef49-1be1-4da1-92ff-0faf67072d8d.png" alt="Rafael Nadal portrait" class="mx-auto w-12 h-12 rounded-full">
+                            <h4 class="font-medium text-sm mt-1">Nadal</h4>
+                        </div>
+                    </div>
+                    <div class="flex justify-between space-x-2">
+                        <button class="bg-gray-700 hover:bg-blue-600 text-white px-2 py-1 rounded-md text-xs font-medium transition w-full">1 (1.30)</button>
+                        <button class="bg-gray-700 hover:bg-red-600 text-white px-2 py-1 rounded-md text-xs font-medium transition w-full">2 (3.40)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Promotions Section -->
+    <section id="promotions" class="py-10 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-white">
+                    <i class="fas fa-gift text-red-500 mr-2"></i> Promotions
+                </h2>
+                <a href="#" class="text-yellow-400 hover:text-yellow-300 transition">View All</a>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Promotion 1 -->
+                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/226693a0-57b5-476b-81d5-d11ad76229d6.png" alt="Welcome bonus promotion with golden coins and fireworks background" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold text-white mb-2">100% Welcome Bonus</h3>
+                        <p class="text-gray-300 mb-4">Get 100% bonus up to $1000 on your first deposit!</p>
+                        <button class="bg-yellow-500 hover:bg-yellow-400 text-black px-4 py-2 rounded-md font-bold transition w-full">
+                            Claim Bonus
                         </button>
                     </div>
-                    <div class="flex space-x-3">
-                        <button class="hover:bg-blue-900 hover:bg-opacity-50 p-2 rounded-full transition-all">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
-                            </svg>
+                </div>
+                
+                <!-- Promotion 2 -->
+                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a0dac75e-ce67-4827-8aa8-e26c7fa6877e.png" alt="Free spins promotion with slot machine and sparkling stars" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold text-white mb-2">200 Free Spins</h3>
+                        <p class="text-gray-300 mb-4">Unlock 200 free spins on Book of Dead when you deposit $20+</p>
+                        <button class="bg-yellow-500 hover:bg-yellow-400 text-black px-4 py-2 rounded-md font-bold transition w-full">
+                            Get Free Spins
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Promotion 3 -->
+                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4f18ed1c-0a31-4893-b309-9297c38f1ebd.png" alt="VIP program promotion with red carpet and golden membership card" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold text-white mb-2">VIP Loyalty Program</h3>
+                        <p class="text-gray-300 mb-4">Earn points with every bet and unlock exclusive rewards</p>
+                        <button class="bg-yellow-500 hover:bg-yellow-400 text-black px-4 py-2 rounded-md font-bold transition w-full">
+                            Join VIP Club
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- Navigation -->
-        <div class="fixed bottom-0 left-0 right-0 bg-blue-900 bg-opacity-90 backdrop-blur-md py-3 px-6 flex justify-around z-50">
-            <button class="text-yellow-200 flex flex-col items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-                </svg>
-                <span class="text-xs mt-1">Home</span>
-            </button>
-            <button class="text-blue-200 flex flex-col items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v1h8v-1zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-1a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v1h-3zM4.75 12.094A5.973 5.973 0 004 15v1H1v-1a3 3 0 013.75-2.906z" />
-                </svg>
-                <span class="text-xs mt-1">Connections</span>
-            </button>
-            <button class="text-blue-200 flex flex-col items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586l4.414 4.414a2 2 0 01.586 1.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd" />
-                </svg>
-                <span class="text-xs mt-1">My World</span>
-            </button>
-            <button class="text-blue-200 flex flex-col items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" />
-                </svg>
-                <span class="text-xs mt-1">Profile</span>
-            </button>
+    </section>
+    
+    <!-- VIP Club Section -->
+    <section id="vip" class="py-10 bg-gradient-to-r from-purple-900 to-blue-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-white mb-8">VIP Club Tiers</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <!-- Bronze Tier -->
+                <div class="bg-gray-800 rounded-lg p-6 text-center shadow-lg">
+                    <div class="w-16 h-16 bg-yellow-800 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-award text-yellow-200 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Bronze</h3>
+                    <p class="text-gray-300 mb-4">0 pts reached</p>
+                    <ul class="text-left space-y-2 mb-6">
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check text-green-400 mr-2 text-sm"></i>
+                            Personal Account Manager
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-times text-red-400 mr-2 text-sm"></i>
+                            Exclusive Events
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-times text-red-400 mr-2 text-sm"></i>
+                            Higher Withdrawal Limits
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Silver Tier -->
+                <div class="bg-gray-700 rounded-lg p-6 text-center shadow-lg border-2 border-blue-500">
+                    <div class="w-16 h-16 bg-gray-300 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-medal text-gray-700 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Silver</h3>
+                    <p class="text-gray-300 mb-4">5,000 pts required</p>
+                    <ul class="text-left space-y-2 mb-6">
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check text-green-400 mr-2 text-sm"></i>
+                            Personal Account Manager
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check text-green-400 mr-2 text-sm"></i>
+                            Exclusive Events
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-times text-red-400 mr-2 text-sm"></i>
+                            Higher Withdrawal Limits
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Gold Tier -->
+                <div class="bg-yellow-800 rounded-lg p-6 text-center shadow-lg border-2 border-yellow-400 transform hover:scale-105 transition duration-300">
+                    <div class="w-16 h-16 bg-yellow-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-crown text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Gold</h3>
+                    <p class="text-gray-300 mb-4">15,000 pts required</p>
+                    <ul class="text-left space-y-2 mb-6">
+                        <li class="flex items-center text-white">
+                            <i class="fas fa-check text-green-400 mr-2 text-sm"></i>
+                            Personal Account Manager
+                        </li>
+                        <li class="flex items-center text-white">
+                            <i class="fas fa-check text-green-400 mr-2 text-sm"></i>
+                            Exclusive Events
+                        </li>
+                        <li class="flex items-center text-white">
+                            <i class="fas fa-check text-green-400 mr-2 text-sm"></i>
+                            Higher Withdrawal Limits
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Platinum Tier -->
+                <div class="bg-blue-900 rounded-lg p-6 text-center shadow-lg border-2 border-blue-300">
+                    <div class="w-16 h-16 bg-blue-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-gem text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Platinum</h3>
+                    <p class="text-gray-300 mb-4">25,000+ pts required</p>
+                    <ul class="text-left space-y-2 mb-6">
+                        <li class="flex items-center text-white">
+                            <i class="fas fa-check text-green-400 mr-2 text-sm"></i>
+                            Personal Account Manager
+                        </li>
+                        <li class="flex items-center text-white">
+                            <i class="fas fa-check text-green-400 mr-2 text-sm"></i>
+                            VIP Events
+                        </li>
+                        <li class="flex items-center text-white">
+                            <i class="fas fa-check text-green-400 mr-2 text-sm"></i>
+                            No Withdrawal Limits
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Payment Methods -->
+    <section class="py-10 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold text-center text-white mb-6">Payment Methods</h2>
+            
+            <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
+                <div class="bg-gray-900 p-4 rounded-lg flex items-center justify-center">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9629f103-d401-4b95-8ec6-860c8a899793.png" alt="Visa credit card logo" class="h-8 object-contain hover:scale-110 transition duration-200">
+                </div>
+                <div class="bg-gray-900 p-4 rounded-lg flex items-center justify-center">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/22eadce0-b0b0-4038-b0c4-aa85d737010f.png" alt="Mastercard credit card logo" class="h-8 object-contain">
+                </div>
+                <div class="bg-gray-900 p-4 rounded-lg flex items-center justify-center">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/77b71b36-74b0-4942-9223-1b97c45d5e0a.png" alt="Skrill digital wallet logo" class="h-8 object-contain">
+                </div>
+                <div class="bg-gray-900 p-4 rounded-lg flex items-center justify-center">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7d73e83d-aa7a-474f-9207-b247168957ca.png" alt="Neteller digital wallet logo" class="h-8 object-contain">
+                </div>
+                <div class="bg-gray-900 p-4 rounded-lg flex items-center justify-center">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0c0eb430-68b7-4b20-bf42-45ae2df2afc6.png" alt="Bitcoin cryptocurrency logo" class="h-8 object-contain">
+                </div>
+                <div class="bg-gray-900 p-4 rounded-lg flex items-center justify-center">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0fff494c-4077-4257-ade2-af30610e69f3.png" alt="Bank transfer payment method icon" class="h-8 object-contain">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-10">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-4">1WIN Casino</h3>
+                    <p class="text-gray-400 mb-4">The premium online gaming destination for winners worldwide.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-yellow-400 transition">
+                            <i class="fab fa-facebook-f text-lg"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-yellow-400 transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-yellow-400 transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-yellow-400 transition">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-4">Games</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition">Live Casino</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition">Slots</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition">Blackjack</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition">Roulette</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition">Baccarat</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-4">Sports</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition">Football</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition">Tennis</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition">Basketball</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition">Cricket</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition">Esports</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-4">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition">Responsible Gaming</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition">Terms & Conditions</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-10 pt-6 text-center">
+                <p class="text-gray-500 text-sm">© 2023 1WIN Casino. All rights reserved.</p>
+                <p class="text-gray-600 text-xs mt-2">18+ Only. Gambling can be addictive. Please play responsibly.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Login Modal -->
+    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center">
+        <div class="bg-gray-800 rounded-lg p-6 w-full max-w-md">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-white">Login to Your Account</h2>
+                <button id="close-login" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label for="login-email" class="block text-sm font-medium text-gray-300 mb-1">Email</label>
+                    <input type="email" id="login-email" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                </div>
+                
+                <div>
+                    <label for="login-password" class="block text-sm font-medium text-gray-300 mb-1">Password</label>
+                    <input type="password" id="login-password" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                </div>
+                
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="remember-me" class="h-4 w-4 text-yellow-500 focus:ring-yellow-500 border-gray-600 rounded">
+                        <label for="remember-me" class="ml-2 block text-sm text-gray-300">Remember me</label>
+                    </div>
+                    <a href="#" class="text-sm text-yellow-400 hover:text-yellow-300">Forgot password?</a>
+                </div>
+                
+                <button type="submit" class="w-full bg-yellow-500 hover:bg-yellow-400 text-black px-4 py-3 rounded-md font-bold transition">
+                    Login
+                </button>
+                
+                <div class="text-center text-sm text-gray-400">
+                    Don't have an account? <a href="#" id="switch-to-register" class="text-yellow-400 hover:text-yellow-300">Sign up</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Register Modal -->
+    <div id="register-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center">
+        <div class="bg-gray-800 rounded-lg p-6 w-full max-w-md">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-white">Create New Account</h2>
+                <button id="close-register" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form id="register-form" class="space-y-4">
+                <div>
+                    <label for="register-email" class="block text-sm font-medium text-gray-300 mb-1">Email</label>
+                    <input type="email" id="register-email" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                </div>
+                
+                <div>
+                    <label for="register-password" class="block text-sm font-medium text-gray-300 mb-1">Password</label>
+                    <input type="password" id="register-password" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                </div>
+                
+                <div>
+                    <label for="register-password2" class="block text-sm font-medium text-gray-300 mb-1">Confirm Password</label>
+                    <input type="password" id="register-password2" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                </div>
+                
+                <div>
+                    <label for="register-currency" class="block text-sm font-medium text-gray-300 mb-1">Preferred Currency</label>
+                    <select id="register-currency" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                        <option value="USD">US Dollar (USD)</option>
+                        <option value="EUR">Euro (EUR)</option>
+                        <option value="GBP">British Pound (GBP)</option>
+                    </select>
+                </div>
+                
+                <div class="flex items-center">
+                    <input type="checkbox" id="accept-terms" class="h-4 w-4 text-yellow-500 focus:ring-yellow-500 border-gray-600 rounded">
+                    <label for="accept-terms" class="ml-2 block text-sm text-gray-300">I am 18+ and accept the Terms & Conditions</label>
+                </div>
+                
+                <button type="submit" class="w-full bg-yellow-500 hover:bg-yellow-400 text-black px-4 py-3 rounded-md font-bold transition">
+                    Register
+                </button>
+                
+                <div class="text-center text-sm text-gray-400">
+                    Already have an account? <a href="#" id="switch-to-login" class="text-yellow-400 hover:text-yellow-300">Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Deposit Modal -->
+    <div id="deposit-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center">
+        <div class="bg-gray-800 rounded-lg p-6 w-full max-w-md">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-white">Deposit Funds</h2>
+                <button id="close-deposit" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form id="deposit-form" class="space-y-4">
+                <div>
+                    <label for="deposit-amount" class="block text-sm font-medium text-gray-300 mb-1">Amount (USD)</label>
+                    <input type="number" id="deposit-amount" min="10" step="10" value="100" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                </div>
+                
+                <div>
+                    <label for="deposit-method" class="block text-sm font-medium text-gray-300 mb-1">Payment Method</label>
+                    <select id="deposit-method" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                        <option value="visa">Visa</option>
+                        <option value="mastercard">Mastercard</option>
+                        <option value="skrill">Skrill</option>
+                        <option value="neteller">Neteller</option>
+                        <option value="crypto">Cryptocurrency</option>
+                    </select>
+                </div>
+                
+                <div class="bg-gray-900 p-3 rounded-md">
+                    <p class="text-sm font-medium text-yellow-400 mb-1">Bonus Available!</p>
+                    <p class="text-xs text-gray-300">Deposit $100 or more and get 50% bonus!</p>
+                    <div class="flex items-center mt-2">
+                        <input type="checkbox" id="use-bonus" class="h-4 w-4 text-yellow-500 focus:ring-yellow-500 border-gray-600 rounded" checked>
+                        <label for="use-bonus" class="ml-2 block text-sm text-gray-300">Yes, claim my bonus</label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-md font-bold transition">
+                    Proceed to Payment
+                </button>
+            </form>
         </div>
     </div>
     
     <script>
-        // Create twinkling stars
-        function createStars() {
-            const container = document.getElementById('stars-container');
-            const starCount = 100;
-            
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.classList.add('stars');
-                
-                // Random positioning
-                const left = Math.random() * 100;
-                const top = Math.random() * 100;
-                
-                // Random size
-                const size = Math.random() * 3;
-                
-                // Random animation properties
-                const duration = `${Math.random() * 5 + 3}s`;
-                const delay = `${Math.random() * 5}s`;
-                const opacity = Math.random() * 0.8 + 0.2;
-                
-                star.style.setProperty('--duration', duration);
-                star.style.setProperty('--opacity', opacity);
-                star.style.left = `${left}%`;
-                star.style.top = `${top}%`;
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                star.style.animationDelay = delay;
-                
-                container.appendChild(star);
-            }
-        }
+        // Mobile menu toggle
+        const mobileMenuButton = document.querySelector('header button.md\\:hidden');
+        const mobileMenu = document.getElementById('mobile-menu');
         
-        // Initialize app
-        document.addEventListener('DOMContentLoaded', () => {
-            createStars();
-            
-            // Check if within active hours (10 PM - 4 AM)
-            const now = new Date();
-            const hours = now.getHours();
-            const isActiveHours = hours >= 22 || hours < 4;
-            
-            if (!isActiveHours) {
-                alert("My Moon is only available from 10 PM to 4 AM. Come back when the moon is shining!");
-            }
-            
-            // Voice recorder animation
-            const progressRing = document.querySelector('.progress-ring');
-            if (progressRing) {
-                progressRing.style.animationPlayState = 'paused';
-            }
-        // Post creation functionality
-            const postTextarea = document.querySelector('textarea');
-            const postButton = document.querySelector('.glow-button');
-            
-            postButton.addEventListener('click', () => {
-                const postText = postTextarea.value;
-                if (postText.trim() !== '') {
-                    const mood = document.querySelector('[data-mood].active')?.dataset.mood || 'thoughtful';
-                    createPost(postText, mood);
-                    postTextarea.value = '';
-                }
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Login/Register modal functionality
+        const loginBtn = document.getElementById('login-btn');
+        const registerBtn = document.getElementById('register-btn');
+        const loginModal = document.getElementById('login-modal');
+        const registerModal = document.getElementById('register-modal');
+        const closeLogin = document.getElementById('close-login');
+        const closeRegister = document.getElementById('close-register');
+        const switchToRegister = document.getElementById('switch-to-register');
+        const switchToLogin = document.getElementById('switch-to-login');
+        
+        // Show login modal
+        loginBtn.addEventListener('click', () => {
+            loginModal.classList.remove('hidden');
+            loginModal.classList.add('flex');
+        });
+        
+        // Show register modal
+        registerBtn.addEventListener('click', () => {
+            registerModal.classList.remove('hidden');
+            registerModal.classList.add('flex');
+        });
+        
+        // Close modals
+        closeLogin.addEventListener('click', () => {
+            loginModal.classList.add('hidden');
+            loginModal.classList.remove('flex');
+        });
+        
+        closeRegister.addEventListener('click', () => {
+            registerModal.classList.add('hidden');
+            registerModal.classList.remove('flex');
+        });
+        
+        // Switch between login and register
+        switchToRegister.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.classList.add('hidden');
+            loginModal.classList.remove('flex');
+            registerModal.classList.remove('hidden');
+            registerModal.classList.add('flex');
+        });
+        
+        switchToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerModal.classList.add('hidden');
+            registerModal.classList.remove('flex');
+            loginModal.classList.remove('hidden');
+            loginModal.classList.add('flex');
+        });
+        
+        // Form submissions
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Login functionality would be implemented here');
+            loginModal.classList.add('hidden');
+            loginModal.classList.remove('flex');
+        });
+        
+        document.getElementById('register-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Registration functionality would be implemented here');
+            registerModal.classList.add('hidden');
+            registerModal.classList.remove('flex');
+        });
+        
+        // Deposit button functionality
+        document.querySelector('.balance-display button.bg-green-600').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('deposit-modal').classList.remove('hidden');
+            document.getElementById('deposit-modal').classList.add('flex');
+        });
+        
+        document.getElementById('close-deposit').addEventListener('click', () => {
+            document.getElementById('deposit-modal').classList.add('hidden');
+            document.getElementById('deposit-modal').classList.remove('flex');
+        });
+        
+        document.getElementById('deposit-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const amount = document.getElementById('deposit-amount').value;
+            const method = document.getElementById('deposit-method').value;
+            alert(`Deposit of $${amount} via ${method} would be processed here`);
+            document.getElementById('deposit-modal').classList.add('hidden');
+            document.getElementById('deposit-modal').classList.remove('flex');
+        });
+        
+        // Game card hover effects
+        document.querySelectorAll('.game-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.querySelector('img').classList.add('transform', 'scale-105');
             });
-
-            // Mood selection
-            document.querySelectorAll('[data-mood]').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('[data-mood]').forEach(b => b.classList.remove('bg-yellow-300', 'text-blue-900', 'active'));
-                    this.classList.add('bg-yellow-300', 'text-blue-900', 'active');
-                });
+            
+            card.addEventListener('mouseleave', () => {
+                card.querySelector('img').classList.remove('transform', 'scale-105');
             });
-
-            // Voice recorder functionality
-            const recordButton = document.querySelector('.voice-recorder button');
-            recordButton.addEventListener('click', async () => {
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                // Recording logic would go here
-            });
-
-            function createPost(text, mood) {
-                // Post creation logic with API call
-                console.log('Creating post:', text, mood);
-            }
-
-            function sendFriendRequest(userId) {
-                // Disable button after sending
-                document.querySelectorAll(`button[onclick="sendFriendRequest('${userId}')"]`)
-                    .forEach(btn => btn.disabled = true);
-                
-                // Would trigger to server in real implementation
-                console.log(`Friend request sent to ${userId}`);
-                alert(`Friend request sent to ${userId}. They'll see it in their profile!`);
-            }
-
-            function showConnectionModal() {
-                // Modal to show pending requests
-                alert("Loading connection requests...");
-                // In full implementation would show a modal with pending requests
-            }
         });
     </script>
 </body>
